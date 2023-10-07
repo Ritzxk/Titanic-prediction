@@ -109,7 +109,7 @@ df = pd.read_csv('cleaned_train.csv')
 
 sex_survived = df.groupby(['Sex'])['Survived'].mean()
 
-st.subheader('Fate via Gender')
+st.subheader('Survival rate by Gender')
 # Create the plot using Seaborn
 fig, ax = plt.subplots(figsize=(4,4))
 sns.barplot(x=sex_survived.index, y=sex_survived.values, ax=ax, palette='viridis')
@@ -118,7 +118,7 @@ ax.set_xticks(range(len(sex_survived)))
 ax.set_xticklabels(['Female', 'Male'])
 ax.set_xlabel('Gender')
 ax.set_ylabel('Rate of Survival')
-ax.set_title('Survival Rate by Gender')
+
 
 # Display the plot
 st.pyplot(fig)
@@ -136,16 +136,15 @@ plt.tight_layout()
 st.pyplot(fig)
 
 survival_rate_per_class = df.groupby('Pclass')['Survived'].mean()
-st.subheader('Fate via Gender')
+st.subheader('Survival rate by Pclass')
 # Create the plot using Seaborn
 fig, ax = plt.subplots(figsize=(4,4))
 sns.barplot(x=survival_rate_per_class.index, y=survival_rate_per_class.values, ax=ax, palette='viridis')
 
 ax.set_xticks(range(len(sex_survived)))
-ax.set_xticklabels(['Female', 'Male'])
-ax.set_xlabel('Gender')
+ax.set_xticklabels(['class1', 'class2','class3'])
+ax.set_xlabel('Pclass')
 ax.set_ylabel('Rate of Survival')
-ax.set_title('Survival Rate by Gender')
 
 # Display the plot
 st.pyplot(fig)
