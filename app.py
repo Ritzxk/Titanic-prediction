@@ -140,9 +140,8 @@ st.subheader('Survival rate by Pclass')
 # Create the plot using Seaborn
 fig, ax = plt.subplots(figsize=(4,4))
 sns.barplot(x=survival_rate_per_class.index, y=survival_rate_per_class.values, ax=ax, palette='viridis')
-
-ax.set_xticks(range(len(sex_survived)))
-ax.set_xticklabels(['class1', 'class2','class3'])
+ax.set_xticks(range(len(survival_rate_per_class)))
+ax.set_xticklabels(['class1', 'class2', 'class3'])
 ax.set_xlabel('Pclass')
 ax.set_ylabel('Rate of Survival')
 
