@@ -58,7 +58,7 @@ css = """
             background-repeat: no-repeat;
         }
         .stApp {
-            background-color: rgba(0,0,0,0.5);
+            background-color: rgba(0,0,0,0.7);
             padding: 20px;
             border-radius: 10px;
         }
@@ -71,7 +71,7 @@ st.markdown(css, unsafe_allow_html=True)
 
 # Streamlit app
 st.title('Titanic Survival Prediction App')
-
+st.write('~by Ritesh')
 st.write('Please provide the following details to predict survival:')
 
 # Input fields for user
@@ -98,20 +98,54 @@ if st.button('Predict Survival'):
     
     # Display result
     if prediction == 0:
-        st.write('Based on the provided information, the prediction is: Not Survived')
+        st.subheader('Based on the provided information, the prediction is: Not Survived')
     else:
-        st.write('Based on the provided information, the prediction is: Survived')
-        
+        st.subheader('Based on the provided information, the prediction is: Survived')
+
+st.title('Some Insights')        
 # data visualization
 df = pd.read_csv('cleaned_train.csv')
 
+
+sex_survived = df.groupby(['Sex'])['Survived'].mean()
+
+st.subheader('Fate via Gender')
+# Create the plot using Seaborn
+fig, ax = plt.subplots(figsize=(4,4))
+sns.barplot(x=sex_survived.index, y=sex_survived.values, ax=ax, palette='viridis')
+
+ax.set_xticks(range(len(sex_survived)))
+ax.set_xticklabels(['Female', 'Male'])
+ax.set_xlabel('Gender')
+ax.set_ylabel('Rate of Survival')
+ax.set_title('Survival Rate by Gender')
+
+# Display the plot
+st.pyplot(fig)
+
+
 # plotting 
 st.subheader('Count of People Who Survived vs. Not Survived')
-fig, ax = plt.subplots(figsize=(8, 6))
-sns.countplot(data=df, x='Survived', ax=ax)
+fig, ax = plt.subplots(figsize=(4,4))
+sns.countplot(data=df, x='Survived', ax=ax, palette='viridis')
 ax.set_xticks([0, 1])
 ax.set_xticklabels(['Not Survived', 'Survived'])
 ax.set_xlabel('Fate')
 ax.set_ylabel('Number of People')
 plt.tight_layout()
+st.pyplot(fig)
+
+survival_rate_per_class = df.groupby('Pclass')['Survived'].mean()
+st.subheader('Fate via Gender')
+# Create the plot using Seaborn
+fig, ax = plt.subplots(figsize=(4,4))
+sns.barplot(x=survival_rate_per_class.index, y=survival_rate_per_class.values, ax=ax, palette='viridis')
+
+ax.set_xticks(range(len(sex_survived)))
+ax.set_xticklabels(['Female', 'Male'])
+ax.set_xlabel('Gender')
+ax.set_ylabel('Rate of Survival')
+ax.set_title('Survival Rate by Gender')
+
+# Display the plot
 st.pyplot(fig)
